@@ -20,6 +20,7 @@ model Lead {
   telefone  String
   cidade    String
   tipoAcidente String
+  dataAcidente DateTime
   createdAt DateTime @default(now())
 }
 

@@ -5,6 +5,7 @@ CREATE TABLE `Lead` (
     `telefone` VARCHAR(191) NOT NULL,
     `cidade` VARCHAR(191) NOT NULL,
     `tipoAcidente` VARCHAR(191) NOT NULL,
+    `dataAcidente` DATETIME(3) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
 
     PRIMARY KEY (`id`)

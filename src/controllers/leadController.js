@@ -13,14 +13,16 @@ export const getLeads = async (req, res) => {
 };
 // Function to add a new lead
 export const addLead = async (req, res) => {
-    const { nome, telefone, tipoAcidente,cidade  } = req.body;
+    const { nome, telefone, tipoAcidente,cidade, dataAcidente  } = req.body;
     try {
        const newLead = await prisma.lead.create({
             data: {
                 nome,
                 telefone,
                 tipoAcidente,
-                cidade
+                cidade,
+                dataAcidente: dataAcidente ? new Date(dataAcidente) : null // Convert to Date if provided
+
             }
         });
 
@@ -34,6 +36,8 @@ export const addLead = async (req, res) => {
                 <p><strong>Telefone:</strong> ${telefone}</p>
                 <p><strong>Tipo de Acidente:</strong> ${tipoAcidente}</p>
                 <p><strong>Cidade:</strong> ${cidade}</p>
+                <p><strong>Data do Acidente:</strong> ${dataAcidente ? new Date(dataAcidente).toLocaleDateString() : 'Não informado'}</p>
+                <p>Por favor, entre em contato com o lead o mais rápido possível.</p>
             `
         });
 
@@ -47,7 +51,7 @@ export const addLead = async (req, res) => {
 // Function to update a lead by ID
 export const updateLead = async (req, res) => {
     const { id } = req.params;
-    const { nome, telefone, tipoAcidente, cidade } = req.body;
+    const { nome, telefone, tipoAcidente, cidade, dataAcidente } = req.body;
 
     try {
         const data = {}
@@ -55,6 +59,7 @@ export const updateLead = async (req, res) => {
         if (telefone) data.telefone = telefone;
         if (tipoAcidente) data.tipoAcidente = tipoAcidente;
         if (cidade) data.cidade = cidade;
+        if (dataAcidente) data.dataAcidente = new Date(dataAcidente); // Convert to Date if provided
         const updatedLead = await prisma.lead.update({
             where: { id: parseInt(id) },
             data: {
