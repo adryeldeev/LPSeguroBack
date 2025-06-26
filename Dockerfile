@@ -9,8 +9,12 @@ WORKDIR /app
 COPY package*.json ./
 
 # Instala as dependências de produção
-# npm ci é preferido para builds consistentes
 RUN npm ci --only=production
+
+# ==========================================================
+# ADICIONE ESTA LINHA:
+RUN npx prisma generate
+# ==========================================================
 
 # Copia o restante do código da aplicação para o contêiner
 COPY . .
