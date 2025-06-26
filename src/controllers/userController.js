@@ -74,6 +74,7 @@ const messages ={
     }
  export const getUser =async (req, res)=> {
         const userId = req.user.id; // Assuming user ID is stored in req.user by the auth middleware
+        console.log("Role vindo do token:", req.user.role);
         try {
             const user = await prisma.user.findUnique({
                 where: { id: userId },
