@@ -30,13 +30,14 @@ const messages ={
                 return res.status(400).json({ error: messages.emailExists });
             }
             const hashedPassword = await bcrypt.hash(password, 10);
-            const newUser = await prisma.user.create({
-                data: {
-                    name,
-                    email: normalizedEmail,
-                    password: hashedPassword
-                }
-            });
+           const newUser = await prisma.user.create({
+  data: {
+    name,
+    email: normalizedEmail,
+    password: hashedPassword,
+   role: "user"
+  }
+});
 
             res.status(201).json({ message: messages.userCreated, user: newUser });
         } catch (error) {
