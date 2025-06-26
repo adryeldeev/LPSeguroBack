@@ -83,3 +83,4 @@ export const deleteLead = async (req, res) => {
         res.status(500).json({ error: "Failed to delete lead" });
     }
 };
+
